@@ -2,7 +2,7 @@ package gstadapter
 
 import (
 	"encoding/binary"
-	"github.com/danielpaulus/quicktime_video_hack/screencapture/coremedia"
+	"github.com/chenhengjie123/quicktime_video_hack/screencapture/coremedia"
 	log "github.com/sirupsen/logrus"
 	"io"
 	"net"
