@@ -1,9 +1,9 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/danielpaulus/quicktime_video_hack)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/chenhengjie123/quicktime_video_hack)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://circleci.com/gh/danielpaulus/quicktime_video_hack.svg?style=svg)](https://circleci.com/gh/danielpaulus/quicktime_video_hack)
 [![codecov](https://codecov.io/gh/danielpaulus/quicktime_video_hack/branch/master/graph/badge.svg)](https://codecov.io/gh/danielpaulus/quicktime_video_hack)
-[![Go Report](https://goreportcard.com/badge/github.com/danielpaulus/quicktime_video_hack)](https://goreportcard.com/report/github.com/danielpaulus/quicktime_video_hack)
+[![Go Report](https://goreportcard.com/badge/github.com/chenhengjie123/quicktime_video_hack)](https://goreportcard.com/report/github.com/chenhengjie123/quicktime_video_hack)
 
 Release 0.6
 
@@ -39,9 +39,9 @@ without needing one of these expensive MacOS X computers or the hard to use Quic
 
 ### 2.2 Linux
 
-1. Run with Docker: the Docker files are [here](https://github.com/danielpaulus/quicktime_video_hack/tree/master/docker). There is one for just building and one for running.
+1. Run with Docker: the Docker files are [here](https://github.com/chenhengjie123/quicktime_video_hack/tree/master/docker). There is one for just building and one for running.
 
-2. If you want to build/run locally then copy paste the dependencies from this [Dockerfile](https://github.com/danielpaulus/quicktime_video_hack/blob/master/docker/Dockerfile.debian) and install with apt.
+2. If you want to build/run locally then copy paste the dependencies from this [Dockerfile](https://github.com/chenhengjie123/quicktime_video_hack/blob/master/docker/Dockerfile.debian) and install with apt.
 3. Git clone the repo and start hacking or download the latest release and run the binary :-D
 
 ## 3. Usage
@@ -55,9 +55,9 @@ without needing one of these expensive MacOS X computers or the hard to use Quic
 ## 4. Technical Docs/ Roll your own implementation
 
 QVH probably does something similar to what `QuickTime` and `com.apple.cmio.iOSScreenCaptureAssistant` are doing on MacOS.
-I have written some documentation here [doc/technical_documentation.md](https://github.com/danielpaulus/quicktime_video_hack/blob/master/doc/technical_documentation.md)
+I have written some documentation here [doc/technical_documentation.md](https://github.com/chenhengjie123/quicktime_video_hack/blob/master/doc/technical_documentation.md)
 So if you are just interested in the protocol or if you want to implement this in a different programming language than golang, read the docs.
 Also I have extracted binary dumps of all messages for writing unit tests and re-develop this in your preferred language in a test driven style.
 
 I have given up on windows support :-)
-~~[Port to Windows](https://github.com/danielpaulus/quicktime_video_hack/tree/windows/windows) (I don't know why, but still people use Windows nowadays)~~ Did not find a way to do it
+~~[Port to Windows](https://github.com/chenhengjie123/quicktime_video_hack/tree/windows/windows) (I don't know why, but still people use Windows nowadays)~~ Did not find a way to do it

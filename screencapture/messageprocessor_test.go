@@ -7,9 +7,9 @@ import (
 	"log"
 	"testing"
 
-	"github.com/danielpaulus/quicktime_video_hack/screencapture"
-	"github.com/danielpaulus/quicktime_video_hack/screencapture/coremedia"
-	"github.com/danielpaulus/quicktime_video_hack/screencapture/packet"
+	"github.com/chenhengjie123/quicktime_video_hack/screencapture"
+	"github.com/chenhengjie123/quicktime_video_hack/screencapture/coremedia"
+	"github.com/chenhengjie123/quicktime_video_hack/screencapture/packet"
 	"github.com/stretchr/testify/assert"
 )
 
