@@ -59,7 +59,7 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 
 	iface, err := findAndClaimQuickTimeInterface(config)
 	if err != nil {
-		log.Debug("could not get Quicktime Interface")
+		log.Error("could not get Quicktime Interface", err)
 		return err
 	}
 	log.Debugf("Got QT iface:%s", iface.String())
@@ -104,6 +104,7 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 	go func() {
 		lengthBuffer := make([]byte, 4)
 		for {
+			log.Debug("Read lengthBuffer")
 			n, err := io.ReadFull(stream, lengthBuffer)
 			if err != nil {
 				log.Errorf("Failed reading 4bytes length with err:%s only received: %d", err, n)
@@ -112,8 +113,10 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 			//the 4 bytes header are included in the length, so we need to subtract them
 			//here to know how long the payload will be
 			length := binary.LittleEndian.Uint32(lengthBuffer) - 4
+			log.Debugf("Received length: %d", length)
 			dataBuffer := make([]byte, length)
-
+			
+			log.Debug("Read dataBuffer")
 			n, err = io.ReadFull(stream, dataBuffer)
 			if err != nil {
 				log.Errorf("Failed reading payload with err:%s only received: %d/%d bytes", err, n, length)
@@ -121,12 +124,15 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 				stopSignal <- signal
 				return
 			}
+			log.Debugf("Received data: %s", fmt.Sprintf("%x", dataBuffer))
 			if usbAdapter.Dump {
+				log.Debug("Dumping data")
 				_, err := usbAdapter.DumpInWriter.Write(dataBuffer)
 				if err != nil {
 					log.Fatalf("Failed dumping data:%v", err)
 				}
 			}
+			log.Debug("Sending data to receiver")
 			receiver.ReceiveData(dataBuffer)
 		}
 	}()
