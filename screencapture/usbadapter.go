@@ -94,6 +94,7 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 	log.Debugf("Outbound Bulk: %s", outEndpoint.String())
 	usbAdapter.outEndpoint = outEndpoint
 
+	log.Debug("Claiming endpoint")
 	stream, err := inEndpoint.NewStream(4096, 5)
 	if err != nil {
 		log.Fatal("couldnt create stream")
@@ -124,7 +125,7 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 				stopSignal <- signal
 				return
 			}
-			log.Debugf("Received data: %s", fmt.Sprintf("%x", dataBuffer))
+			// log.Debugf("Received data: %s", fmt.Sprintf("%x", dataBuffer))
 			if usbAdapter.Dump {
 				log.Debug("Dumping data")
 				_, err := usbAdapter.DumpInWriter.Write(dataBuffer)
