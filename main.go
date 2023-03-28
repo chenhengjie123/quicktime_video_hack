@@ -371,6 +371,7 @@ func record(h264FilePath string, wavFilePath string, device screencapture.IosDev
 }
 
 func startWithConsumer(consumer screencapture.CmSampleBufConsumer, device screencapture.IosDevice, audioOnly bool) {
+	log.Debugf("Starting with consumer: %v", consumer)
 	var err error
 	device, err = screencapture.EnableQTConfig(device)
 	if err != nil {
@@ -392,6 +393,7 @@ func startWithConsumer(consumer screencapture.CmSampleBufConsumer, device screen
 }
 
 func startWithConsumerDump(consumer screencapture.CmSampleBufConsumer, device screencapture.IosDevice, dumpPath string) {
+	log.Debugf("Starting with startWithConsumerDump: %v", consumer)
 	var err error
 	device, err = screencapture.EnableQTConfig(device)
 	if err != nil {
