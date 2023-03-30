@@ -2,6 +2,7 @@ package screencapture
 
 import (
 	"encoding/binary"
+	"time"
 
 	"github.com/chenhengjie123/quicktime_video_hack/screencapture/coremedia"
 	"github.com/chenhengjie123/quicktime_video_hack/screencapture/packet"
@@ -274,18 +275,17 @@ func (mp *MessageProcessor) CloseSession() {
 	log.Info("Telling device to stop streaming..")
 	mp.usbWriter.WriteDataToUsb(packet.NewAsynHPA0(mp.deviceAudioClockRef))
 	mp.usbWriter.WriteDataToUsb(packet.NewAsynHPD0())
-	// 去掉等待设备回传RELS消息的逻辑，加快关闭速度，避免关闭过慢
-	// log.Info("Waiting for device to tell us to stop..")
-	// for i := 0; i < 2; i++ {
-	// 	select {
-	// 	case <-mp.releaseWaiter:
-	// 	case <-time.After(3 * time.Second):
-	// 		log.Warn("Timed out waiting for device closing")
-	// 		return
-	// 	}
-	// }
-	// mp.usbWriter.WriteDataToUsb(packet.NewAsynHPD0())
-	// log.Info("OK. Ready to release USB Device.")
+	log.Info("Waiting for device to tell us to stop..")
+	for i := 0; i < 2; i++ {
+		select {
+		case <-mp.releaseWaiter:
+		case <-time.After(3 * time.Second):
+			log.Warn("Timed out waiting for device closing")
+			return
+		}
+	}
+	mp.usbWriter.WriteDataToUsb(packet.NewAsynHPD0())
+	log.Info("OK. Ready to release USB Device.")
 }
 
 func (mp MessageProcessor) stop() {
