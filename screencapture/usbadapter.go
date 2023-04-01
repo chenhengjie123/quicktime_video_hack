@@ -37,6 +37,7 @@ func (usbAdapter *UsbAdapter) WriteDataToUsb(bytes []byte) {
 //Every received data is added to a frameextractor and when it is complete, sent to the UsbDataReceiver.
 func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataReceiver, stopSignal chan interface{}) error {
 	ctx, cleanUp := createContext()
+	// will trigger clean up when this funciton is done
 	defer cleanUp()
 
 	usbDevice, err := OpenDevice(ctx, device)
@@ -105,21 +106,21 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 	go func() {
 		lengthBuffer := make([]byte, 4)
 		for {
-			log.Debug("Read lengthBuffer")
+			// log.Debug("Read lengthBuffer")
 			n, err := io.ReadFull(stream, lengthBuffer)
-			log.Debug("Read lengthBuffer done")
+			// log.Debug("Read lengthBuffer done")
 			if err != nil {
 				log.Errorf("Failed reading 4bytes length with err:%s only received: %d", err, n)
 				return
 			}
 			//the 4 bytes header are included in the length, so we need to subtract them
 			//here to know how long the payload will be
-			log.Debug("Get length begin")
+			// log.Debug("Get length begin")
 			length := binary.LittleEndian.Uint32(lengthBuffer) - 4
-			log.Debugf("Received length: %d", length)
+			// log.Debugf("Received length: %d", length)
 			dataBuffer := make([]byte, length)
-			
-			log.Debug("Read dataBuffer")
+
+			// log.Debug("Read dataBuffer")
 			n, err = io.ReadFull(stream, dataBuffer)
 			if err != nil {
 				log.Errorf("Failed reading payload with err:%s only received: %d/%d bytes", err, n, length)
@@ -129,13 +130,13 @@ func (usbAdapter *UsbAdapter) StartReading(device IosDevice, receiver UsbDataRec
 			}
 			// log.Debugf("Received data: %s", fmt.Sprintf("%x", dataBuffer))
 			if usbAdapter.Dump {
-				log.Debug("Dumping data")
+				// log.Debug("Dumping data")
 				_, err := usbAdapter.DumpInWriter.Write(dataBuffer)
 				if err != nil {
 					log.Fatalf("Failed dumping data:%v", err)
 				}
 			}
-			log.Debug("Sending data to receiver")
+			// log.Debug("Sending data to receiver")
 			receiver.ReceiveData(dataBuffer)
 		}
 	}()
