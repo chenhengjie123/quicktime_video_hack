@@ -10,11 +10,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/danielpaulus/go-ios/ios"
 	"github.com/chenhengjie123/quicktime_video_hack/screencapture"
 	"github.com/chenhengjie123/quicktime_video_hack/screencapture/coremedia"
 	"github.com/chenhengjie123/quicktime_video_hack/screencapture/diagnostics"
 	"github.com/chenhengjie123/quicktime_video_hack/screencapture/gstadapter"
+	"github.com/danielpaulus/go-ios/ios"
 	"github.com/docopt/docopt-go"
 	log "github.com/sirupsen/logrus"
 )
